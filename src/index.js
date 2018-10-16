@@ -1,8 +1,17 @@
+var fs = require('file-system');
+var http = require('http');
+var https = require('https');
+var privateKey  = fs.readFileSync('sslcert/dialapp.key', 'utf8');
+var certificate = fs.readFileSync('sslcert/dialapp.crt', 'utf8');
+
+var credentials = {key: privateKey, cert: certificate};
+
 const express = require('express')
 const morgan = require('morgan')
 const mongoose = require('mongoose')
 
-const app = express()
+//const app = express()
+const app = express(credentials);
 
 mongoose.connect('mongodb://localhost/dialapp-database', { 
     useNewUrlParser: true,
@@ -11,7 +20,13 @@ mongoose.connect('mongodb://localhost/dialapp-database', {
     .catch(err => console.error)
 
 // Settings
-app.set('port', process.env.PORT || 3001)
+var httpServer = http.createServer(app);
+var httpsServer = https.createServer(credentials, app);
+
+//httpServer.listen(3001);
+var listener = httpsServer.listen(3001);
+
+//app.set('port', port)
 
 // Middlewares
 app.use(morgan('dev'))
@@ -26,5 +41,5 @@ app.use(express.static(__dirname + '/public'))
 
 // Server is listening
 app.listen(app.get('port'), () => {
-    console.log('Server on port ', app.get('port'))
+    console.log('Server on port ', listener.address().port)
 })
