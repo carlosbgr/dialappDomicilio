@@ -33,49 +33,44 @@
 </template>
 
 <script>
-import Firebase from 'firebase'
-import App from './App.vue'
+import Firebase from "firebase";
+import App from "./App.vue";
 
 export default {
-  name: 'signIn',
-  data: function () {
+  name: "signIn",
+  data: function() {
     return {
-      email: '',
-      password: ''
-    }
+      email: "",
+      password: ""
+    };
   },
   methods: {
-    signIn: function () {
-this.getPacientesForEmail(this.email)
+    signIn: function() {
+      this.getPacientesForEmail(this.email);
 
-      console.log(window.$cookies.get('paciente'))
-
-      if(window.$cookies.get('paciente') === null){
-        console.log('dfdfdf')
-
+      if (window.$cookies.get("paciente") !== null) {
+        Firebase.auth()
+          .signInWithEmailAndPassword(this.email, this.password)
+          .then(
+            user => {
+              this.$router.replace("menu");
+            },
+            err => {
+              alert("Ups! " + err.message);
+            }
+          );
       }
-
-      /*if(window.$cookies.get('paciente') === "" || window.$cookies.get('paciente') === null){
-        Firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(
-        (user) => {
-            this.$router.replace('menu')
-        },
-        (err) => {
-          alert('Ups! ' + err.message)
-        }
-      )
-          }*/
     },
-    resetPassword(){
-      Firebase.auth()
+    resetPassword() {
+      Firebase.auth();
     },
     getPacientesForEmail(e) {
       fetch("/api/pacientes/email/" + e)
         .then(res => res.json())
         .then(data => {
-          window.$cookies.set('paciente', data.sip)
+          window.$cookies.set("paciente", data.sip);
         });
     }
   }
-}
+};
 </script>

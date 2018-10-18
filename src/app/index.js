@@ -13,6 +13,7 @@ Vue.use(Pagination)
 
 import config from '../config'
 Firebase.initializeApp(config.firebase)
+
 Firebase.auth().onAuthStateChanged(function(user) {
     new Vue({
         router,

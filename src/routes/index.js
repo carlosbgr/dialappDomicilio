@@ -6,7 +6,7 @@ import VueCookies from 'vue-cookies'
 // Imports componentes .vue
 import Login from '../app/components/Login.vue'
 import Menu from '../app/components/Menu.vue'
-import Sesiones from '../app/components/Sesiones.vue'
+import Sesion from '../app/components/Sesion.vue'
 
 // Import Firebase
 import Firebase from 'firebase'
@@ -25,7 +25,7 @@ let router = new Router({
     { path: '/', redirect: '/login'},
     { path: '/login', name: 'Login', component: Login },
     { path: '/menu', name: 'Menu', component: Menu, meta: { requiresAuth: true }},
-    { path: '/registrosesion', name: 'Sesiones', component: Sesiones, meta: { requiresAuth: true }},
+    { path: '/registrosesion', name: 'Sesion', component: Sesion, meta: { requiresAuth: true }},
   ]
 })
 

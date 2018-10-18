@@ -1,4 +1,4 @@
-var fs = require('file-system');
+var fs = require('fs');
 var http = require('http');
 var https = require('https');
 var privateKey  = fs.readFileSync('sslcert/dialapp.key', 'utf8');
@@ -13,14 +13,14 @@ const mongoose = require('mongoose')
 //const app = express()
 const app = express(credentials);
 
-mongoose.connect('mongodb://localhost/dialapp-database', { 
+mongoose.connect('mongodb://10.192.138.97/dialapp-database', { 
     useNewUrlParser: true,
     useCreateIndex: true  })
     .then(db => console.log('DB is connected'))
     .catch(err => console.error)
 
 // Settings
-var httpServer = http.createServer(app);
+//var httpServer = http.createServer(app);
 var httpsServer = https.createServer(credentials, app);
 
 //httpServer.listen(3001);

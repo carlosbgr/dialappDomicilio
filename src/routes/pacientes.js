@@ -23,7 +23,7 @@ router.get('/sip/:sip', async(req, res) => {
 
 // Devuelve un item filtrando por email
 router.get('/email/:email', async(req, res) => {
-  const paciente = await Paciente.findOne( {email: req.params.email}, { sip:1 }, req.body)
+  const paciente = await Paciente.findOne( {"email" : req.params.email}, { "sip" : "$sip","_id" : 0}, req.body)
   res.json(paciente)
 })
 
