@@ -35,6 +35,7 @@ app.use(express.json())
 // Routes
 app.use('/api/sesiones', require('../src/routes/sesiones'))
 app.use('/api/pacientes', require('../src/routes/pacientes'))
+app.use('/api/monitores', require('../src/routes/monitores'))
 
 // static files
 app.use(express.static(__dirname + '/public'))
