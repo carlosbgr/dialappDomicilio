@@ -1,8 +1,8 @@
 var fs = require('fs');
 var http = require('http');
 var https = require('https');
-var privateKey  = fs.readFileSync('sslcert/ssl_vvdhgcaplweb02.cs.san.gva.es.key', 'utf8');
-var certificate = fs.readFileSync('sslcert/ssl_vvdhgcaplweb02.cs.san.gva.es.crt', 'utf8');
+var privateKey  = fs.readFileSync('sslcert/dialapp.key', 'utf8');
+var certificate = fs.readFileSync('sslcert/dialapp.crt', 'utf8');
 //var p12 = fs.readFileSync('sslcert/ssl_vvdhgcaplweb02.cs.san.gva.es.p12', 'utf8');
 
 var credentials = {key: privateKey, cert: certificate};
@@ -13,7 +13,7 @@ const morgan = require('morgan')
 const mongoose = require('mongoose')
 
 //const app = express()
-const app = express(credentials);
+const app = express();
 
 mongoose.connect('mongodb://10.192.138.97/dialapp-database', { 
     useNewUrlParser: true,
@@ -23,7 +23,7 @@ mongoose.connect('mongodb://10.192.138.97/dialapp-database', {
 
 // Settings
 //var httpServer = http.createServer(app);
-var httpsServer = https.createServer(app);
+var httpsServer = https.createServer(credentials,app);
 
 //httpServer.listen(3001);
 var listener = httpsServer.listen(3000);
