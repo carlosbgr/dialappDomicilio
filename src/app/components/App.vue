@@ -2,14 +2,14 @@
     <div id="app">
         <div>
           <nav class="navbar navbar-dark bg-primary">
-            <a href="/" class="navbar-brand">Dialapp HUGCS domicilio</a>
+            <a href="/" class="navbar-brand text-md">Dialapp <label class="text-sm border border-white rounded px-1">domicilio</label></a>
             <!--<template  v-if="btnVolver === true">
               <button class="btn btn-secondary" @click="volverRedirect" >Volver a >> {{ this.volver }}</button>
             </template>-->
             <template v-if="btnCerrar === true">
               <div id="btnlogout" class="row mb-8">
                 <!--<button disabled="disabled" class="btn btn-primary">{{  this.facultativo  }}</button>-->
-                <button @click="logout" class="btn btn-danger shadow"> Cerrar Sesion </button>
+                <button @click="logout" class="btn btn-sm btn-danger shadow"> Cerrar Sesion </button>
               </div>
             </template>
           </nav>
@@ -79,6 +79,11 @@ export default {
 
 #btnlogout{
   margin-right: 1%;
+}
+
+.text-sm{
+  font-size: 60%;
+  padding: 1%;
 }
 
 </style>
